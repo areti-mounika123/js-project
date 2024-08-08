@@ -1,0 +1,330 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zip Code</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-image: url(./map.jpg);
+            background-repeat: no-repeat;
+            background-size: cover; 
+        }
+        #zip {
+            background-color: white;
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            border: 2px solid black;
+            background-color: #f4f4f4;
+            display: block;
+        }
+        #zip input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid gray;
+            border-radius: 20px;
+        }
+        #zip input:hover {
+            border: 2px solid black;
+        }
+        #zip button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            border: 1px solid gray;
+        }
+        #zip button:hover {
+            background-color: #28a745;
+            border: 1px solid black;
+        }
+        #error {
+            color: red;
+            display: none;
+        }
+        #disp-data {
+            display: none;
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+            /* border-collapse: collapse; */
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            background-color: #F0F0F0;
+            color: black;
+        }
+        th {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="zip">
+        <h2 style="text-align: center;text-decoration: underline;">Enter Postal Code</h2>
+        <label for="PostCode">Postal Code:</label>
+        <input type="text" id="PostCode" required>
+        <button id="button">Submit</button>
+        <span id="error">Invalid Postal Code</span>
+    </div>
+    <div id="disp-data">
+        <h3 style="text-align: center;text-decoration: underline;">Location Details</h3>
+        <table id="details-table">
+            <thead>
+                <tr>
+                    <th>District</th>
+                    <th>Taluka</th>
+                    <th>State</th>
+                    <th>Pincode</th>
+                    <th>Longitude</th>
+                    <th>Latitude</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById("button").addEventListener("click", async function() {
+            const postcode = document.getElementById("PostCode").value;
+            const url = `https://indian-zipcodes.p.rapidapi.com/api/data?pincode=${postcode}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': '568818e3e7msh059fc983eb246f7p1100bajsnbcaf06339cff',
+                    'x-rapidapi-host': 'indian-zipcodes.p.rapidapi.com'
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                const details = result;
+
+                if (details.length === 0) {
+                    throw new Error("Invalid Postal Code");
+                }
+
+                const tbody = document.querySelector("#details-table tbody");
+                tbody.innerHTML = ""; 
+
+                details.forEach(element => {
+                    if (postcode == element.pincode) {
+                        const tr = document.createElement("tr");
+
+                        const district = document.createElement("td");
+                        district.innerText = element.district;
+                        const taluka = document.createElement("td");
+                        taluka.innerText = element.taluka;
+                        const state = document.createElement("td");
+                        state.innerText = element.state;
+                        const pincode = document.createElement("td");
+                        pincode.innerText = element.pincode;
+                        const longitude = document.createElement("td");
+                        longitude.innerText = element.longitude;
+                        const latitude = document.createElement("td");
+                        latitude.innerText = element.latitude;
+
+                        tr.append(district, taluka, state, pincode, longitude, latitude);
+                        tbody.appendChild(tr);
+                    }
+                });
+
+                document.getElementById("error").style.display = "none";
+                document.getElementById("disp-data").style.display = "block";
+            } catch (error) {
+                console.error(error);
+                document.getElementById("error").innerText = error.message;
+                document.getElementById("error").style.display = "block";
+                document.getElementById("disp-data").style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zip Code</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-image: url(./map.jpg);
+            background-repeat: no-repeat;
+            background-size: cover; 
+        }
+        #zip {
+            background-color: white;
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            border: 2px solid black;
+            background-color: #f4f4f4;
+            display: block;
+        }
+        #zip input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid gray;
+            border-radius: 20px;
+        }
+        #zip input:hover {
+            border: 2px solid black;
+        }
+        #zip button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            border: 1px solid gray;
+        }
+        #zip button:hover {
+            background-color: #28a745;
+            border: 1px solid black;
+        }
+        #error {
+            color: red;
+            display: none;
+        }
+        #disp-data {
+            display: none;
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            background-color: #F0F0F0;
+            color: black;
+        }
+        th {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="zip">
+        <h2 style="text-align: center; text-decoration: underline;">Enter Postal Code</h2>
+        <label for="PostCode">Postal Code:</label>
+        <input type="text" id="PostCode" required>
+        <button id="button">Submit</button>
+        <span id="error">Invalid Postal Code</span>
+    </div>
+    <div id="disp-data">
+        <h3 style="text-align: center; text-decoration: underline;">Location Details</h3>
+        <table id="details-table">
+            <thead>
+                <tr>
+                    <th>District</th>
+                    <th>Taluka</th>
+                    <th>State</th>
+                    <th>Pincode</th>
+                    <th>Longitude</th>
+                    <th>Latitude</th>
+                </tr>
+            </thead>
+            <tbody id="details-body">
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const button = document.getElementById("button");
+        const postcodeInput = document.getElementById("PostCode");
+        const errorSpan = document.getElementById("error");
+        const dispDataDiv = document.getElementById("disp-data");
+        const detailsTableBody = document.getElementById("details-body");
+
+        button.addEventListener("click", async function() {
+            const postcode = postcodeInput.value;
+            const url = `https://indian-zipcodes.p.rapidapi.com/api/data?pincode=${postcode}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': '568818e3e7msh059fc983eb246f7p1100bajsnbcaf06339cff',
+                    'x-rapidapi-host': 'indian-zipcodes.p.rapidapi.com'
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                const details = result;
+
+                if (details.length === 0) {
+                    throw new Error("Invalid Postal Code");
+                }
+
+                detailsTableBody.innerHTML = ""; 
+
+                details.forEach(element => {
+                    if (postcode == element.pincode) {
+                        const rowHTML = `
+                            <tr>
+                                <td>${element.district}</td>
+                                <td>${element.taluka}</td>
+                                <td>${element.state}</td>
+                                <td>${element.pincode}</td>
+                                <td>${element.longitude}</td>
+                                <td>${element.latitude}</td>
+                            </tr>
+                        `;
+                        detailsTableBody.insertAdjacentHTML('beforeend', rowHTML);
+                    }
+                });
+
+                errorSpan.style.display = "none";
+                dispDataDiv.style.display = "block";
+            } catch (error) {
+                console.error(error);
+                errorSpan.innerText = error.message;
+                errorSpan.style.display = "block";
+                dispDataDiv.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
